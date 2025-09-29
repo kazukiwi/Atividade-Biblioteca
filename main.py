@@ -15,8 +15,14 @@ while True:
     if pergunta == 1:
         listar = fun.listar_livros()
 
-    if pergunta == 2:
+    elif pergunta == 2:
         cadastro = fun.cadastrar_livros()
+
+    elif pergunta == 3:
+        atualizar = fun.atualização_disponibilidade()
+    
+    elif pergunta == 4:
+        remover = fun.remover_livro()
 
     if pergunta == 5:
         break

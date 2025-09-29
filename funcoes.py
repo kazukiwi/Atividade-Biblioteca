@@ -31,7 +31,7 @@ def menu():
 def listar_livros():
     try:
         cursor.execute("""
-        SELECT * FROM biblioteca
+        SELECT * FROM livros
         """)
         for linha in cursor.fetchall():
             print(f"ID - {linha[0]} | Título - {linha[1]} | Autor - {linha[2]} | Ano - {linha[3]} | Disponibilidade - {linha[4]}")
@@ -42,7 +42,7 @@ def cadastrar_livros():
     titulo = input("Digite o Título do livro: ")
     autor = input("Digite o autor do livro: ")
     ano = int(input("Digite o ano de lançamento do livro: "))
-    disponivel = "sim"
+    disponivel = "Sim"
     try:
         cursor.execute("""
         INSERT INTO livros (titulo, autor, ano, disponível)
@@ -58,25 +58,24 @@ def atualização_disponibilidade():
     try:
         if nao_sim == 0:
             cursor.execute("""
-            UPDATE biblioteca
-            SET disponível = ? FROM WHERE id = ?
-            """, ("Não", id_atualizar))
+            UPDATE livros
+            SET disponível = ? WHERE id = ?
+            """, ("Não", id_atualizar,))
             conexao.commit()
 
         elif nao_sim == 1:
             cursor.execute("""
-            UPDATE biblioteca
-            SET disponível = ? FROM WHERE id = ?
-            """, ("Sim", id_atualizar))
+            UPDATE livros
+            SET disponível = ? WHERE id = ?
+            """, ("Sim", id_atualizar,))
             conexao.commit()
     except Exception as erro:
         print(f"Erro ao tentar atualizar a disponibilidade: {erro}")
 
 def remover_livro():
-    id_livro = int(input("Digite o ID do aluno: "))
+    id_livro = int(input("Digite o ID do livro: "))
     try:
-        fun.conexaoo()
-        cursor.execute("DELETE FROM biblioteca WHERE id = ?", (id_livro))
+        cursor.execute("DELETE FROM livros WHERE id = ?", (id_livro,))
         conexao.commit()
 
         if cursor.rowcount > 0:
