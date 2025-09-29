@@ -15,3 +15,19 @@ CREATE TABLE IF NOT EXISTS livros(
 )
 """)
 print("Tabela criada com sucesso!")
+
+while True:
+    menu = fun.menu()
+
+    pergunta = int(input("Digite o número que queira entrar: "))
+
+    if pergunta == 1:
+        listar = fun.listar_livros()
+
+    if pergunta == 2:
+        cadastro = fun.cadastrar_livros()
+
+    if pergunta == 5:
+        break
+
+cursor.close()
