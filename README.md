@@ -25,14 +25,17 @@ Este é um sistema simples de biblioteca com interface gráfica feita em **Strea
 
 2. **Instale as dependências:**
 
-pip install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
 
 
 3. **Execute a aplicação:**
 
+   ```bash
 streamlit run app.py
 
 
 4. **Acesse no navegador:**
 
+   ```bash
 http://localhost:8501
