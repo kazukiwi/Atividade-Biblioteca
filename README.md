@@ -32,10 +32,10 @@ Este é um sistema simples de biblioteca com interface gráfica feita em **Strea
 3. **Execute a aplicação:**
 
    ```bash
-streamlit run app.py
+   streamlit run app.py
 
 
 4. **Acesse no navegador:**
 
    ```bash
-http://localhost:8501
+   http://localhost:8501
