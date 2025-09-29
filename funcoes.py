@@ -15,12 +15,9 @@ CREATE TABLE IF NOT EXISTS usuarios(
     )
 """)
 
-def cadastro():
+def cadastro(nome, email, senha):
     conexao = sql.connect("Clientes.db")
     cursor = conexao.cursor()
-    nome = input("Digite o seu nome: ")
-    email = input("Digite o seu email: ")
-    senha = input("Digite sua senha: ")
     try:
         cursor.execute("""
     INSERT INTO usuarios (nome, email, senha) 
@@ -57,19 +54,23 @@ def menu():
     print("5. Sair do sistema")
 
 def listar_livros():
+    conexao = sql.connect("biblioteca.db")
+    cursor = conexao.cursor()
     try:
         cursor.execute("""
         SELECT * FROM livros
         """)
-        for linha in cursor.fetchall():
-            print(f"ID - {linha[0]} | Título - {linha[1]} | Autor - {linha[2]} | Ano - {linha[3]} | Disponibilidade - {linha[4]}")
+        livros = cursor.fetchall()
+        return livros
     except Exception as erro:
         print(f"Erro ao tentar listar os livros: {erro}")
+    finally:
+        if conexao:
+            conexao.close()
 
-def cadastrar_livros():
-    titulo = input("Digite o Título do livro: ")
-    autor = input("Digite o autor do livro: ")
-    ano = int(input("Digite o ano de lançamento do livro: "))
+def cadastrar_livros(titulo, autor, ano):
+    conexao = sql.connect("biblioteca.db")
+    cursor = conexao.cursor()
     disponivel = "Sim"
     try:
         cursor.execute("""
@@ -79,10 +80,13 @@ def cadastrar_livros():
         conexao.commit()
     except Exception as erro:
         print(f"Erro ao tentar cadastrar livro: {erro}")
+    finally:
+        if conexao:
+            conexao.close()
     
-def atualização_disponibilidade():
-    id_atualizar = input("Digite o id que queira modificar: ")
-    nao_sim = int(input("Deseja disponibilizar (1) ou não disponibilizar (0): "))
+def atualização_disponibilidade(id_atualizar, nao_sim):
+    conexao = sql.connect("biblioteca.db")
+    cursor = conexao.cursor()
     try:
         if nao_sim == 0:
             cursor.execute("""
@@ -99,9 +103,13 @@ def atualização_disponibilidade():
             conexao.commit()
     except Exception as erro:
         print(f"Erro ao tentar atualizar a disponibilidade: {erro}")
+    finally:
+        if conexao:
+            conexao.close()
 
-def remover_livro():
-    id_livro = int(input("Digite o ID do livro: "))
+def remover_livro(id_livro):
+    conexao = sql.connect("biblioteca.db")
+    cursor = conexao.cursor()
     try:
         cursor.execute("DELETE FROM livros WHERE id = ?", (id_livro,))
         conexao.commit()
