@@ -3,6 +3,34 @@ import funcoes as fun
 conexao = sql.connect("biblioteca.db")
 cursor = conexao.cursor()
 
+def sql_table_users():
+    conexao = sql.connect("Clientes.db")
+    cursor = conexao.cursor("")
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS usuarios(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    senha TEXT NOT NULL
+    )
+""")
+
+def cadastro():
+    conexao = sql.connect("Clientes.db")
+    cursor = conexao.cursor()
+    nome = input("Digite o seu nome: ")
+    email = input("Digite o seu email: ")
+    senha = input("Digite sua senha: ")
+    try:
+        cursor.execute("""
+    INSERT INTO usuarios (nome, email, senha) 
+    VALUES (?, ?, ?)
+    """, (nome, email, senha))
+        conexao.commit()
+    except Exception as erro:
+        print(f"Erro ao cadastrar o usuario! Erro: {erro}")
+
+
 def sql_table():
     cursor.execute("""
 CREATE TABLE IF NOT EXISTS livros(

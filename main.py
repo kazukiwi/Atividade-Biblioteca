@@ -2,8 +2,9 @@ import sqlite3 as sql
 import funcoes as fun
 
 conexao = sql.connect("biblioteca.db")
-
 cursor = conexao.cursor()
+
+cadastro = fun.cadastro()
 
 tabela = fun.sql_table()
 
